@@ -5,48 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Professional Timetable</title>
 <style>
+/* ------------------- Base Styles ------------------- */
 body {
   font-family: 'Kosugi Maru', sans-serif;
   background-color: #F1E9E9;
   margin: 0;
-  padding: 30px;
+  padding: 20px;
   color: #15173D;
 }
+
 h2 {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  font-size: 2rem;
+  margin-bottom: 20px;
   color: #15173D;
 }
+
+/* ------------------- Department Card ------------------- */
 .department {
   width: 800px;
   max-width: 95%;
-  margin: 0 auto 40px;
-  padding: 40px;
+  margin: 0 auto 30px;
+  padding: 20px;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
 }
+
+.department:hover {
+  transform: translateY(-3px);
+}
+
 .department h3 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #982598;
   margin-bottom: 15px;
 }
+
+/* ------------------- Table Styles ------------------- */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 10px;
+  border-spacing: 0 8px;
+  min-width: 500px; /* ensures horizontal scroll if needed */
 }
+
 th, td {
-  padding: 15px;
+  padding: 12px 10px;
   text-align: center;
+  white-space: nowrap; /* prevents wrapping */
 }
+
 th {
   background-color: #15173D;
   color: #F1E9E9;
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-radius: 10px 10px 0 0;
 }
+
 td {
   background-color: #E491C9;
   border-radius: 10px;
@@ -54,28 +75,67 @@ td {
   font-weight: 500;
   transition: all 0.3s ease;
 }
+
 tr:hover td {
   background-color: #982598;
   color: #F1E9E9;
   transform: scale(1.02);
   cursor: pointer;
 }
+
 .today td {
   background-color: #982598 !important;
   color: #F1E9E9 !important;
   font-weight: bold;
   transform: scale(1.03);
 }
+
+/* ------------------- Mobile Adjustments ------------------- */
 @media (max-width: 600px) {
-  th, td {
+  body {
     padding: 10px;
-    font-size: 0.9rem;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
   }
   .department h3 {
     font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  th, td {
+    padding: 8px 6px;
+    font-size: 0.8rem;
+  }
+  table {
+    min-width: 100%; /* table scrolls if too wide */
+  }
+}
+
+/* ------------------- Extra Small Screens (<400px) ------------------- */
+@media (max-width: 400px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead tr {
+    display: none;
+  }
+  tr {
+    margin-bottom: 15px;
+  }
+  td {
+    background-color: #E491C9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #15173D;
+    flex: 1;
+    text-align: left;
   }
 }
 </style>
@@ -84,47 +144,85 @@ tr:hover td {
 
 <h2>📅 My Professional Timetable</h2>
 
+<!-- Computer Courses -->
 <div class="department" id="cs">
   <h3>🖥️ Computer Courses</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Day</th>
-        <th>Course</th>
-        <th>Time</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-day="Saturday"><td>Saturday</td><td>System Programming — برمجة نظم</td><td>3 - 5</td><td>مدرج 5</td></tr>
-      <tr data-day="Sunday"><td>Sunday</td><td>Advanced Programming — برمجة متقدمة</td><td>6 - 8</td><td>مدرج 5</td></tr>
-      <tr data-day="Monday"><td>Monday</td><td>Theory of Computation — نظرية الحسابات</td><td>6 - 8</td><td>مدرج 4</td></tr>
-      <tr data-day="Wednesday"><td>Wednesday</td><td>Computer Graphics — رسومات الحاسب</td><td>8 - 10</td><td>مدرج 5</td></tr>
-      <tr data-day="Thursday"><td>Thursday</td><td>Data Structures — تراكيب البيانات</td><td>6 - 8</td><td>مدرج 4</td></tr>
-    </tbody>
-  </table>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Course</th>
+          <th>Time</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-day="Saturday">
+          <td data-label="Day">Saturday</td>
+          <td data-label="Course">System Programming — برمجة نظم</td>
+          <td data-label="Time">3 - 5</td>
+          <td data-label="Location">مدرج 5</td>
+        </tr>
+        <tr data-day="Sunday">
+          <td data-label="Day">Sunday</td>
+          <td data-label="Course">Advanced Programming — برمجة متقدمة</td>
+          <td data-label="Time">6 - 8</td>
+          <td data-label="Location">مدرج 5</td>
+        </tr>
+        <tr data-day="Monday">
+          <td data-label="Day">Monday</td>
+          <td data-label="Course">Theory of Computation — نظرية الحسابات</td>
+          <td data-label="Time">6 - 8</td>
+          <td data-label="Location">مدرج 4</td>
+        </tr>
+        <tr data-day="Wednesday">
+          <td data-label="Day">Wednesday</td>
+          <td data-label="Course">Computer Graphics — رسومات الحاسب</td>
+          <td data-label="Time">8 - 10</td>
+          <td data-label="Location">مدرج 5</td>
+        </tr>
+        <tr data-day="Thursday">
+          <td data-label="Day">Thursday</td>
+          <td data-label="Course">Data Structures — تراكيب البيانات</td>
+          <td data-label="Time">6 - 8</td>
+          <td data-label="Location">مدرج 4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
+<!-- Statistics Courses -->
 <div class="department" id="stats">
   <h3>📊 Statistics Courses</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Day</th>
-        <th>Course</th>
-        <th>Time</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-day="Saturday"><td>Saturday</td><td>Statistical Methods — طرق إحصائية</td><td>8 - 10</td><td>مدرج 7</td></tr>
-    </tbody>
-  </table>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Course</th>
+          <th>Time</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-day="Saturday">
+          <td data-label="Day">Saturday</td>
+          <td data-label="Course">Statistical Methods — طرق إحصائية</td>
+          <td data-label="Time">8 - 10</td>
+          <td data-label="Location">مدرج 7</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
+// Highlight today's rows
 const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const todayName = days[new Date().getDay()];
+
 document.querySelectorAll("tbody tr").forEach(row => {
   if(row.dataset.day === todayName){
     row.classList.add("today");
@@ -134,5 +232,7 @@ document.querySelectorAll("tbody tr").forEach(row => {
 
 </body>
 </html>
+
+
 
 
