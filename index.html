@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Timetable</title>
+<style>
+body {
+  font-family: 'Kosugi Maru', sans-serif;
+  background-color: #F1E9E9;
+  margin: 0;
+  padding: 30px;
+  color: #15173D;
+}
+h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #15173D;
+}
+.department {
+  width: 800px;
+  max-width: 95%;
+  margin: 0 auto 40px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+.department h3 {
+  font-size: 1.6rem;
+  color: #982598;
+  margin-bottom: 15px;
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+th, td {
+  padding: 15px;
+  text-align: center;
+}
+th {
+  background-color: #15173D;
+  color: #F1E9E9;
+  font-size: 1.1rem;
+  border-radius: 10px 10px 0 0;
+}
+td {
+  background-color: #E491C9;
+  border-radius: 10px;
+  color: #15173D;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+tr:hover td {
+  background-color: #982598;
+  color: #F1E9E9;
+  transform: scale(1.02);
+  cursor: pointer;
+}
+.today td {
+  background-color: #982598 !important;
+  color: #F1E9E9 !important;
+  font-weight: bold;
+  transform: scale(1.03);
+}
+@media (max-width: 600px) {
+  th, td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  .department h3 {
+    font-size: 1.2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2>📅 My Professional Timetable</h2>
+
+<div class="department" id="cs">
+  <h3>🖥️ Computer Courses</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Course</th>
+        <th>Time</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-day="Saturday"><td>Saturday</td><td>System Programming — برمجة نظم</td><td>3 - 5</td><td>مدرج 5</td></tr>
+      <tr data-day="Sunday"><td>Sunday</td><td>Advanced Programming — برمجة متقدمة</td><td>6 - 8</td><td>مدرج 5</td></tr>
+      <tr data-day="Monday"><td>Monday</td><td>Theory of Computation — نظرية الحسابات</td><td>6 - 8</td><td>مدرج 4</td></tr>
+      <tr data-day="Wednesday"><td>Wednesday</td><td>Computer Graphics — رسومات الحاسب</td><td>8 - 10</td><td>مدرج 5</td></tr>
+      <tr data-day="Thursday"><td>Thursday</td><td>Data Structures — تراكيب البيانات</td><td>6 - 8</td><td>مدرج 4</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="department" id="stats">
+  <h3>📊 Statistics Courses</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Course</th>
+        <th>Time</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-day="Saturday"><td>Saturday</td><td>Statistical Methods — طرق إحصائية</td><td>8 - 10</td><td>مدرج 7</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const todayName = days[new Date().getDay()];
+document.querySelectorAll("tbody tr").forEach(row => {
+  if(row.dataset.day === todayName){
+    row.classList.add("today");
+  }
+});
+</script>
+
+</body>
+</html>
+
+
